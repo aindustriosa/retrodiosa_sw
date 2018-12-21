@@ -61,13 +61,13 @@ if [ $EUID -ne 0 ]; then
 fi
 
 function install_env() {
-    $SUDO apt-get install virtualenv openjdk8-jdk python-dev python3-http-parser
+    $SUDO apt-get install virtualenv openjdk-8-jdk python-dev python3-http-parser
     MYPATH=$(dirname "$0")
 
     # using a virtual environment
     virtualenv -p python2 venv
 
-    $MYPATH/venv/bip/pip --upgrade pip
+    $MYPATH/venv/bin/pip install--upgrade pip
     
     $MYPATH/venv/bin/pip install pyautogui pyudev xlib psutil
 }
@@ -85,6 +85,29 @@ function install_scripts() {
 
     $SUDO sed -i "1 s~^.*$~#! $MYREALPATH/venv/bin/python~" $RETROPIE_INSTALL/supplementary/runcommand/joy2libgdxkey.py
     
+}
+
+function install_server() {
+
+    MYUSER=$(whoami)
+
+    MYPATH=$(dirname "$0")
+    MYREALPATH=$(realpath $MYPATH)
+
+    SERVICE_FILE_PATH=$MYREALPATH/server/retrodiosa.service
+
+    SERVICE_FILE="[Unit]\nDescription=Servidor RetroDiosa\nAfter=network.target\n\n[Service]\nType=simple\nUser=$MYUSER\nWorkingDirectory=$HOME\nExecStart=$MYREALPATH/server/servidor_retrodiosa.py 8000 $ROMPATH/aindustriosa $ROMPATH/aindustriosa/server/\nRestart=on-failure\n# Other Restart options: or always, on-abort, etc \n\n[Install]\nWantedBy=multi-user.target"
+
+    echo -e $SERVICE_FILE > $MYREALPATH/server/retrodiosa.service
+
+    chmod +x $MYREALPATH/server/servidor_retrodiosa.py
+
+    $SUDO cp $MYREALPATH/server/retrodiosa.service /etc/systemd/system/
+
+    $SUDO systemctl enable retrodiosa
+    $SUDO systemctl start retrodiosa
+    
+    # TODO
 }
 
 echo "$SUDO"
@@ -106,6 +129,5 @@ fi
 install_systems
 install_env
 install_scripts
-
-#TODO install server
+install_server
 
