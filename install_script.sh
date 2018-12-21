@@ -2,7 +2,7 @@
 
 RETROPIE_ROMS="RetroPie/roms"
 RETROPIE_INSTALL="/opt/retropie"
-TEST=".test"
+TEST=""
 
 
 # FIXME delete
