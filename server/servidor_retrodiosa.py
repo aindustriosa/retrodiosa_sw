@@ -12,6 +12,10 @@ PORT = int(sys.argv[1])
 FOLDER = sys.argv[2]
 # La carpeta donde estan los ficheros HTML
 HTML = sys.argv[3]
+
+# retropie installation folder (typically /opt/retropie/)
+RETROPIE_INSTALL = sys.argv[4]
+
 try:
     os.makedirs(FOLDER)
 except:
@@ -54,8 +58,8 @@ class RetrodiosaServer(http.server.BaseHTTPRequestHandler):
                 fichero.write(ficheros["json"][0])
             with open(os.path.join(FOLDER, nombre + ".sh"), "wb") as fichero:
                 script = """#!/bin/bash
-/opt/retropie/supplementary/runcommand/runcommand.sh 0 "bash /opt/retropie/supplementary/runcommand/run_libgdx_game.sh {:s} {:s}" "{:s}"
-""".format(os.path.join(FOLDER, nombre + ".jar"), os.path.join(FOLDER, nombre + ".json"), nombre)
+{:s}/supplementary/runcommand/runcommand.sh 0 "bash {:s}/supplementary/runcommand/run_libgdx_game.sh {:s} {:s}" "{:s}"
+""".format(RETROPIE_INSTALL, RETROPIE_INSTALL, os.path.join(FOLDER, nombre + ".jar"), os.path.join(FOLDER, nombre + ".json"), nombre)
                 fichero.write(script.encode("utf-8"))
             os.chmod(os.path.join(FOLDER, nombre + ".sh"), stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
             return

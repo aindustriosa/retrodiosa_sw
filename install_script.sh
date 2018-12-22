@@ -96,7 +96,7 @@ function install_server() {
 
     SERVICE_FILE_PATH=$MYREALPATH/server/retrodiosa.service
 
-    SERVICE_FILE="[Unit]\nDescription=Servidor RetroDiosa\nAfter=network.target\n\n[Service]\nType=simple\nUser=$MYUSER\nWorkingDirectory=$HOME\nExecStart=$MYREALPATH/server/servidor_retrodiosa.py 8000 $ROMPATH/aindustriosa $MYREALPATH/server/\nRestart=on-failure\n# Other Restart options: or always, on-abort, etc \n\n[Install]\nWantedBy=multi-user.target"
+    SERVICE_FILE="[Unit]\nDescription=Servidor RetroDiosa\nAfter=network.target\n\n[Service]\nType=simple\nUser=$MYUSER\nWorkingDirectory=$HOME\nExecStart=$MYREALPATH/server/servidor_retrodiosa.py 8000 $ROMPATH/aindustriosa $MYREALPATH/server/ $RETROPIE_INSTALL\nRestart=on-failure\n# Other Restart options: or always, on-abort, etc \n\n[Install]\nWantedBy=multi-user.target"
 
     echo -e $SERVICE_FILE > $MYREALPATH/server/retrodiosa.service
 
