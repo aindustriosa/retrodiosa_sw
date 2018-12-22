@@ -11,9 +11,13 @@ function install_systems() {
 
     $SUDO cp /etc/emulationstation/es_systems.cfg $RETROPIE_INSTALL/configs/all/emulationstation/es_systems.cfg$TEST
 
+    # Detecting the last line with </system> (last line with the default systems)
     LAST_SYSTEM=$(cat $RETROPIE_INSTALL/configs/all/emulationstation/es_systems.cfg$TEST | grep -n "</system>" | cut -f1 -d: | tail -n 1)
     echo "$LAST_SYSTEM"
-    
+
+    ## Custom systems of A Industriosa
+    ## The first system is to execute custom NES roms
+    ## The second system is to execute LIBGDX Desktop games
     AINDUSTRIOSA_SYSTEMS=" \
   <system>\n \
     <name>aindustriosa</name>\n \
@@ -35,6 +39,7 @@ function install_systems() {
     <theme>aindustriosa_libgdx</theme>\n \
   </system>\n"
 
+    # copy the new systems to the es_systems.cfg
     $SUDO sed -i "$LAST_SYSTEM a $AINDUSTRIOSA_SYSTEMS" $RETROPIE_INSTALL/configs/all/emulationstation/es_systems.cfg$TEST
 
     # copy the themes if they dont exist
@@ -47,9 +52,7 @@ function install_systems() {
 
     # copy the aindustriosa themes to the themes folder
     MYPATH=$(dirname "$0")
-
     $SUDO cp -r $MYPATH/themes/* /etc/emulationstation/themes $RETROPIE_INSTALL/configs/all/emulationstation/themes/
-    
 }
 
 SUDO=''
@@ -60,22 +63,24 @@ if [ $EUID -ne 0 ]; then
     SUDO="sudo"
 fi
 
+## install libraries and a python environment to execute the custom joy2key script
 function install_env() {
     $SUDO apt-get install virtualenv openjdk-8-jdk python-dev python3-http-parser
     MYPATH=$(dirname "$0")
 
-    # using a virtual environment
+    # using a virtual environment (python2)
     virtualenv -p python2 venv
 
     $MYPATH/venv/bin/pip install--upgrade pip
-    
     $MYPATH/venv/bin/pip install pyautogui pyudev xlib psutil
 }
 
+## installing scripts for executing libgdx games from emulation station
 function install_scripts() {
 
     MYPATH=$(dirname "$0")
 
+    # ensuring executables can be executed
     $SUDO chmod +x $MYPATH/scripts/run_libgdx_game.sh
     $SUDO chmod +x $MYPATH/scripts/joy2libgdxkey.py
 
@@ -87,6 +92,7 @@ function install_scripts() {
     
 }
 
+## installing the http server to upload libgdx games   
 function install_server() {
 
     MYUSER=$(whoami)
