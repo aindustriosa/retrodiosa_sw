@@ -25,6 +25,8 @@ More detailed instructions (Spanish) can be found in https://github.com/aindustr
 ./install_script.sh
 ```
 
+The script assumes the directory of installation is /opt/retropie. If this is not in the case, change the RETROPIE_INSTALL parameter (aprox. line 4.)
+
 ## Known Issues
 
 Currently, only x64 architectures are supported.
