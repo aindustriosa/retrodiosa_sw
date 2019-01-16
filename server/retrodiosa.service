@@ -1,0 +1,14 @@
+[Unit]
+Description=Servidor RetroDiosa
+After=network.target
+
+[Service]
+Type=simple
+User=nicoyiago
+WorkingDirectory=/home/nicoyiago
+ExecStart=/home/nicoyiago/retrodiosa-sw/server/servidor_retrodiosa.py 8000 /home/nicoyiago/RetroPie/roms/aindustriosa /home/nicoyiago/RetroPie/roms/aindustriosa/server/
+Restart=on-failure
+# Other Restart options: or always, on-abort, etc 
+
+[Install]
+WantedBy=multi-user.target
