@@ -1,22 +1,37 @@
 <html>
     <head>
-        <title>RetroDiosa</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        <title>A Retrodiosa</title>
     </head>
-<body>
-    <center><h1>RETRODIOSA</h1></center>
-    <form action="/subida.html" method="POST" enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td>Nombre: </td><td><input type="text" name="nombre" required/></td>
-        </tr>
-        <tr>
-            <td>Juego: </td><td><input type="file" name="juego" required/></td>
-        </tr>
-        <tr>
-            <td>JSON: </td><td><input type="file" name="json" required/></td>
-        </tr>
-    </table>
-    <input type="submit">
-</form>
+<body bgcolor="black" background="https://intranet.aindustriosa.org/themes/inspiration-bootstrap3/media/img/logo.png" style="background-repeat: no-repeat; background-size: cover; color: white">
+    <center>
+        <h1>A RETRODIOSA</h1>
+    </center>
+    <form class="pure-form pure-form-aligned" action="/subida.html" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" placeholder="Nombre" required>
+            </div>
+
+            <div class="pure-control-group">
+                <label for="game">Juego</label>
+                <input id="game" type="file" required>
+            </div>
+
+            <div class="pure-control-group">
+                <label for="jsondefinition">JSON</label>
+                <input id="jsondefinition" type="file" required>
+            </div>
+
+            <div class="pure-controls">
+                <label for="cb" class="pure-checkbox">
+                    <input id="cb" type="checkbox"> I've read the terms and conditions
+                </label>
+    
+                <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            </div>
+        </fieldset>
+    </form>
 </body>
 </html>
