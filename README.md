@@ -1,10 +1,12 @@
-# Software of Retrodiosa
+# Software for the Retrodiosa
 
 ## Introduction
 
 This script install additional scripts and themes for the retrodiosa arcade machine, a flamboyant arcade made in A Industriosa.
 
 The most important feature is that it allows the execution of libgdx games in an arcade machine with retropie.
+
+In the tv_control directory you can find an Arduino sketch and a python script for controlling the Retrodiosa's TV by directly interfacing with the IR sensor board in the TV.
 
 ## Features
 
