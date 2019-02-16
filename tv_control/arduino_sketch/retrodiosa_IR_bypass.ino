@@ -214,6 +214,7 @@ void setup()
   pinMode(PIN, OUTPUT);
   digitalWrite(PIN, HIGH);
   Serial.begin(9600);
+  perform_task_if_available('1');
 }
 
 
