@@ -37,6 +37,16 @@ function install_systems() {
     <command>%ROM%</command>\n \
     <platform>favs</platform>\n \
     <theme>aindustriosa_libgdx</theme>\n \
+  </system>\n
+\n \
+  <system>\n \
+    <name>aindustriosa_tv</name>\n \
+    <fullname>TV configuration using the serial port</fullname>\n \
+    <path>$ROMPATH/aindustriosa_tv</path>\n \
+    <extension>.sh</extension>\n \
+    <command>%ROM%</command>\n \
+    <platform>favs</platform>\n \
+    <theme>aindustriosa_tv</theme>\n \
   </system>\n"
 
     # copy the new systems to the es_systems.cfg
@@ -112,9 +122,43 @@ function install_server() {
 
     $SUDO systemctl enable retrodiosa
     $SUDO systemctl start retrodiosa
-    
-    # TODO
 }
+
+# installing screen scripts
+function install_tv_monitor() {
+   # copy the screen to bin folder
+
+   MYPATH=$(dirname "$0")
+   MYREALPATH=$(realpath $MYPATH)
+   $SUDO cp $MYREALPATH/services/ajustar_monitor.sh /bin/
+
+   MYUSER=$(whoami)
+
+   SCREEN_SERVICE_FILE="[Desktop Entry]\n \
+Type=Application\n \
+Exec=/bin/ajustar_monitor.sh\n \
+Hidden=false\n \
+NoDisplay=false\n \
+X-GNOME-Autostart-enabled=true\n \
+Name=ConfigureScreen\n \
+Categories=Game\n"
+
+   $SUDO echo -e $SCREEN_SERVICE_FILE > /usr/local/share/applications/screen_autosetting.desktop
+	
+
+   $SUDO ln -s /usr/local/share/applications/screen_autosetting.desktop /home/$MYUSER/.config/autostart/
+
+
+}
+
+function install_screen_commands() {
+
+   MYPATH=$(dirname "$0")
+   MYREALPATH=$(realpath $MYPATH)
+
+   cp $MYREALPATH/extra/aindustriosa_tv/*.sh $ROMPATH/aindustriosa_tv/
+}
+
 
 echo "$SUDO"
 
@@ -131,9 +175,23 @@ else
     echo "Folder already exists"
 fi
 
+if [[ ! -e $ROMPATH/aindustriosa_libgdx ]]; then
+   mkdir $ROMPATH/aindustriosa_libgdx
+else
+   echo "Folder Aindustriosa_libgdx already exists"
+fi
+
+if [[ ! -e $ROMPATH/aindustriosa_tv ]]; then
+    mkdir $ROMPATH/aindustriosa_tv
+else
+   echo "Folder aindustriosa_tv already exists"
+fi
+
 # add the aindustriosa systems after the last original one
 install_systems
 install_env
 install_scripts
 install_server
+install_tv_monitor
+install_screen_commands
 
