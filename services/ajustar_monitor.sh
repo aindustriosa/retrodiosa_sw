@@ -13,8 +13,10 @@ if xrandr |grep "$extern disconnected"; then
 	echo "Enabling internal monitor"
 	xrandr --output "$extern" --off --output "$intern" --auto
 else
+    if ! ps aux | grep "libgdx" | grep -v "grep"; then
 	echo "Enabling external monitor"
 	xrandr --output "$intern" --off --output "$extern" --auto
+    fi
 fi
 sleep 5
 done
