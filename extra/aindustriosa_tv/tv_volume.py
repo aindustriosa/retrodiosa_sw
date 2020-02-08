@@ -5,7 +5,7 @@ import curses
 import logging
 import subprocess
 from curses import wrapper
-
+from time import sleep
 
 def volume_up():
     """ Perform a volume up """
@@ -90,14 +90,16 @@ def main(stdscr):
             win.addstr(3,15, "<('-'<)", curses.color_pair(3) | curses.A_BLINK)
             volume_down()
             curses.beep()
-
-            
+            sleep(0.5)
+            curses.flushinp()
 
         elif key_str == "KEY_RIGHT":
             win.addstr(2, 8, "VOLUME UP!      ", curses.color_pair(2)| curses.A_BLINK)
             win.addstr(3,15, "(>'-')>", curses.color_pair(3) | curses.A_BLINK)
             volume_up()
             curses.beep()
+            sleep(0.5)
+            curses.flushinp()
 
 
         elif key_str == "KEY_DOWN" or key_str == "KEY_UP":
