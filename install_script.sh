@@ -93,6 +93,7 @@ function install_scripts() {
     # ensuring executables can be executed
     $SUDO chmod +x $MYPATH/scripts/run_libgdx_game.sh
     $SUDO chmod +x $MYPATH/scripts/joy2libgdxkey.py
+    $SUDO chmod +x $MYPATH/scripts/run_python_command.sh
 
     MYREALPATH=$(realpath $MYPATH)
         
@@ -157,6 +158,17 @@ function install_screen_commands() {
    MYREALPATH=$(realpath $MYPATH)
 
    cp $MYREALPATH/extra/aindustriosa_tv/*.sh $ROMPATH/aindustriosa_tv/
+   cp $MYREALPATH/extra/aindustriosa_tv/*.py $ROMPATH/aindustriosa_tv/
+   cp $MYREALPATH/extra/aindustriosa_tv/*.json $ROMPATH/aindustriosa_tv/
+
+   # create the tv_volume.sh file
+
+   sed -i "s~RETROPIE_INSTALL~$RETROPIE_INSTALL~g" $ROMPATH/aindustriosa_tv/tv_volume.sh
+   sed -i "s~ROMPATH~$ROMPATH~g" $ROMPATH/aindustriosa_tv/tv_volume.sh
+   
+   echo $RETROPIE_INSTALL/supplementary/runcommand/runcommand2.sh 0 "bash $RETROPIE_INSTALL/supplementary/runcommand/run_python_command.sh $ROMPATH/aindustriosa_tv/tv_volume.py $ROMPATH/aindustriosa_tv/tv_volume.json" "volume_control" > $ROMPATH/aindustriosa_tv/tv_volume.sh
+
+   
 }
 
 

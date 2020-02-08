@@ -1,4 +1,4 @@
-#!/bin/python
+#! /home/nicoyiago/retrodiosa-sw/venv/bin/python
 
 import os, sys, struct, time, fcntl, termios, signal,json
 import curses, errno, re
@@ -375,7 +375,11 @@ if __name__ == "__main__":
         
     finish_num_codes = {}
     player_js_map = {0: "player1_keys",
-                     1: "player2_keys"}    
+                     1: "player2_keys",
+                     2: "player1_keys",
+                     3: "player2_keys",
+                     4: "player1_keys",
+                     5: "player2_keys"}    
     #curses.setupterm()
 
     event_format = 'IhBB'
@@ -425,6 +429,9 @@ if __name__ == "__main__":
                             if fd not in keystroke_finish:
                                 keystroke_finish[fd] = []
                         else:
+                            if fd not in keystroke_finish:
+                                keystroke_finish[fd] = []
+                            
                             button_codes = None
                             axis_codes = None
                             finish_codes = None

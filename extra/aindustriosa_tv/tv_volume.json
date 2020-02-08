@@ -1,0 +1,8 @@
+{ "player1_path" : "/dev/input/js0",	
+  "player1_keys" : { "input_left_axis" : "left",
+		     "input_right_axis" : "right",
+		     "input_up_axis" : "up",
+                     "input_down_axis" : "down",
+		     "input_a_btn" : "space"},
+  "hotkey_finish" : ["input_enable_hotkey_btn",
+		     "input_start_btn"]}
