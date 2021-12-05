@@ -327,7 +327,7 @@ def send_kill_signal(process_name):
     logging.info("Sending kill signal to {}".format(process_name))
     
     for pid_dict in pid_list:
-        if pid_dict['name'] == "java":
+        if pid_dict['name'] == "java" or pid_dict['name'] == "fuse":
             pid = pid_dict['pid']
             os.kill(int(pid), signal.SIGTERM)
 
