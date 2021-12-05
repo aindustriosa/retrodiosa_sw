@@ -202,7 +202,6 @@ def open_devices(player_js_map,
                  dev,
                  button_key_codes[player_js_map[player_map]],
                  finish_js_codes)
-                        
         except (OSError, ValueError):
             pass
         
@@ -216,7 +215,7 @@ def read_event(fd):
     while True:
         try:
             event = os.read(fd, event_size)
-        except OSError as e:
+        except OSError, e:
             if e.errno == errno.EWOULDBLOCK:
                 return None
             return False
@@ -229,7 +228,7 @@ def process_event(event, button_codes, axis_codes,
 
     (js_time, js_value, js_type, js_number) = struct.unpack(event_format, event)
 
-    #logging.info("JS_TYPE {}".format(js_type))
+    logging.info("JS_TYPE {}".format(js_type))
     
     # ignore init events
     if js_type & JS_EVENT_INIT:
@@ -242,7 +241,7 @@ def process_event(event, button_codes, axis_codes,
         if js_number in button_codes and js_value == 1:
             hex_chars = button_codes[js_number]
             pyautogui.keyDown(hex_chars)
-            logging.info("KEYDOWN {} - {} ".format(hex_chars, js_number))
+            logging.info("KEYDOWN {}".format(hex_chars))
 
         elif js_number in button_codes and js_value == 0:
             hex_chars = button_codes[js_number]
@@ -412,10 +411,10 @@ if __name__ == "__main__":
                     i += 1
                 else:
                     time.sleep(1)
-
-        else:
-            i = 0
-            for fd in js_fds:
+            
+    	else:
+	    i = 0
+	    for fd in js_fds:
                 event = read_event(fd)
                 if event:
                     do_sleep = False
@@ -455,7 +454,7 @@ if __name__ == "__main__":
 
         if time.time() - rescan_time > 2:
             rescan_time = time.time()
-            if js_devs != get_devices():
+            if cmp(js_devs, get_devices()):
                 close_fds(js_fds)
                 js_fds = []
 
