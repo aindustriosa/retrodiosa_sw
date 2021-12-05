@@ -167,7 +167,7 @@ function install_screen_commands() {
    sed -i "s~RETROPIE_INSTALL~$RETROPIE_INSTALL~g" $ROMPATH/aindustriosa_tv/tv_volume.sh
    sed -i "s~ROMPATH~$ROMPATH~g" $ROMPATH/aindustriosa_tv/tv_volume.sh
    
-   echo $RETROPIE_INSTALL/supplementary/runcommand/runcommand2.sh 0 "bash $RETROPIE_INSTALL/supplementary/runcommand/run_python_command.sh $ROMPATH/aindustriosa_tv/tv_volume.py $ROMPATH/aindustriosa_tv/tv_volume.json" "volume_control" > $ROMPATH/aindustriosa_tv/tv_volume.sh
+   echo $RETROPIE_INSTALL/supplementary/runcommand/runcommand.sh 0 "bash $RETROPIE_INSTALL/supplementary/runcommand/run_python_command.sh $ROMPATH/aindustriosa_tv/tv_volume.py $ROMPATH/aindustriosa_tv/tv_volume.json" "volume_control" > $ROMPATH/aindustriosa_tv/tv_volume.sh
 
    
 }
