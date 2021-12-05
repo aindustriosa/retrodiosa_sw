@@ -92,6 +92,7 @@ function install_scripts() {
 
     # ensuring executables can be executed
     $SUDO chmod +x $MYPATH/scripts/run_libgdx_game.sh
+    $SUDO chmod +x $MYPATH/scripts/run_speccy_game.sh
     $SUDO chmod +x $MYPATH/scripts/joy2libgdxkey.py
     $SUDO chmod +x $MYPATH/scripts/run_python_command.sh
 
