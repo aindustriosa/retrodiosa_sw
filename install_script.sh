@@ -78,8 +78,8 @@ function install_env() {
     $SUDO apt-get install virtualenv openjdk-8-jdk python-dev python3-http-parser
     MYPATH=$(dirname "$0")
 
-    # using a virtual environment (python2)
-    virtualenv -p python2 venv
+    # using a virtual environment (python3)
+    virtualenv -p python3 venv
 
     $MYPATH/venv/bin/pip install--upgrade pip
     $MYPATH/venv/bin/pip install pyautogui pyudev xlib psutil
@@ -92,6 +92,7 @@ function install_scripts() {
 
     # ensuring executables can be executed
     $SUDO chmod +x $MYPATH/scripts/run_libgdx_game.sh
+    $SUDO chmod +x $MYPATH/scripts/run_speccy_game.sh
     $SUDO chmod +x $MYPATH/scripts/joy2libgdxkey.py
     $SUDO chmod +x $MYPATH/scripts/run_python_command.sh
 
