@@ -137,7 +137,7 @@ def get_button_codes(dev_path, button_key_codes, finish_js_codes):
         try:
             finish_num.append(int(get_btn_num(btn, js_cfg)))
         except ValueError:
-            finish_num.pop(-1)
+            #finish_num.pop(-1)
             continue
         
     # building the button codes dict num -> key
@@ -321,18 +321,26 @@ def get_js_configuration(data):
     return js_button_codes
 
 def send_kill_signal(process_name):
-    
-    pid_list = [p.info for p in psutil.process_iter(attrs=['pid', 'name', 'cmdline']) if process_name in p.info['cmdline']]
 
+    #process_name = os.path.basename(process_name)
+    print ("ALL", [p.info for p in psutil.process_iter(attrs=['pid', 'name', 'cmdline'])])
+
+    
+    pid_list = [p.info for p in psutil.process_iter(attrs=['pid', 'name', 'cmdline']) if process_name in p.info['cmdline'] or "./" + os.path.basename(process_name) in p.info['cmdline']]
+
+    print ("PIDLIST", pid_list, "PROCESS", process_name)
+    
     logging.info("Sending kill signal to {}".format(process_name))
     
     for pid_dict in pid_list:
-        if pid_dict['name'] == "java" or pid_dict['name'] == "fuse":
+        if pid_dict['name'] == "java" or pid_dict['name'] == "fuse" or pid_dict['name'] == os.path.basename(process_name):
             pid = pid_dict['pid']
             os.kill(int(pid), signal.SIGTERM)
 
 if __name__ == "__main__":
 
+    print("HELLO")
+    
     # set up logging to file
     logging.basicConfig(level=logging.INFO)
 
