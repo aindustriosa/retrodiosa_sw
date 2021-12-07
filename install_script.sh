@@ -95,6 +95,7 @@ function install_scripts() {
     $SUDO chmod +x $MYPATH/scripts/run_speccy_game.sh
     $SUDO chmod +x $MYPATH/scripts/joy2libgdxkey.py
     $SUDO chmod +x $MYPATH/scripts/run_python_command.sh
+    $SUDO chmod +x $MYPATH/scripts/run_anycommand_game.sh
 
     MYREALPATH=$(realpath $MYPATH)
         
