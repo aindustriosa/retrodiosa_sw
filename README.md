@@ -35,3 +35,4 @@ Currently, only x64 architectures are supported.
 
 Installation script only tested in debian-like distributions
 
+<b>Proxecto patrocinado por Xunta de Galicia e Amtega Axencia para a Modernización Tecnolóxica</b>
